@@ -150,8 +150,6 @@ color_bar = ColorBar(color_mapper=color_mapper['transform'],
 
 p.add_layout(color_bar, 'right')
 
-curdoc().add_root(column(p))
-
 
 # In[48]:
 
@@ -162,7 +160,7 @@ curdoc().add_root(column(p))
 
 # Save as HTML
 
-# output_file('sieges.html', title='Historical Battles & Sieges by Number of Casualties')
+output_file('sieges.html', title='Historical Battles & Sieges by Number of Casualties')
 
 
 # In[50]:
