@@ -7,7 +7,7 @@
 # https://towardsdatascience.com/creating-an-interactive-map-in-python-using-bokeh-and-pandas-f84414536a06
 
 from bokeh.io import output_notebook, show, output_file
-from bokeh.plotting import figure, ColumnDataSource
+from bokeh.plotting import figure, curdoc, ColumnDataSource
 from bokeh.tile_providers import get_provider, Vendors
 from bokeh.palettes import PRGn, RdYlGn
 from bokeh.transform import linear_cmap,factor_cmap
@@ -150,6 +150,7 @@ color_bar = ColorBar(color_mapper=color_mapper['transform'],
 
 p.add_layout(color_bar, 'right')
 
+curdoc().add_root(column(p))
 
 # In[48]:
 
