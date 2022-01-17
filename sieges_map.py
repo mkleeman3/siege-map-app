@@ -1,18 +1,13 @@
 #!/usr/bin/env python
 # coding: utf-8
 
-# In[8]:
-
-
-# https://towardsdatascience.com/creating-an-interactive-map-in-python-using-bokeh-and-pandas-f84414536a06
-
 from bokeh.io import output_notebook, show, output_file
 from bokeh.plotting import figure, curdoc, ColumnDataSource
 from bokeh.tile_providers import get_provider, Vendors
 from bokeh.palettes import PRGn, RdYlGn
 from bokeh.transform import linear_cmap,factor_cmap
 from bokeh.layouts import row, column
-from bokeh.models import GeoJSONDataSource, LinearColorMapper, ColorBar, NumeralTickFormatter
+from bokeh.models import GeoJSONDataSource, LinearColorMapper, ColorBar, NumeralTickFormatter, ColumnDataSource, TableColumn, DataTable
 import numpy as np
 import pandas as pd
 
@@ -24,6 +19,8 @@ sieges_df = pd.read_csv('data/sieges.csv', index_col=0, encoding='cp1252')
 
 
 # In[10]:
+
+sieges_df.sort_values('Casualties', ascending=False, inplace=True)
 
 
 sieges_df.head()
@@ -150,7 +147,22 @@ color_bar = ColorBar(color_mapper=color_mapper['transform'],
 
 p.add_layout(color_bar, 'right')
 
-curdoc().add_root(column(p))
+# Add data table with rows sorted desc by 'Casualties'
+
+source = ColumnDataSource(data=sieges_df)
+
+columns = [
+    TableColumn(field='Siege', title='Siege'),
+    TableColumn(field='Conflict', title='Conflict'),
+    TableColumn(field='Year', title='Year'),
+    TableColumn(field='Casualties', title='Casualties'),
+    ]
+
+myTable = DataTable(source=source, columns=columns)
+
+show(myTable)
+
+curdoc().add_root(row(p, myTable))
 
 # In[48]:
 
