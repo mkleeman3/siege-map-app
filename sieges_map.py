@@ -131,7 +131,7 @@ p.add_tile(chosentile)
 
 # Add points using mercator coordinates
 
-p.circle(x = 'mercator_x', y = 'mercator_y', color = color_mapper, source=source, size=30, fill_alpha = 0.7)
+p.inverted_triangle(x = 'mercator_x', y = 'mercator_y', color = color_mapper, source=source, size=15, fill_alpha = 0.7)
 
 
 # In[47]:
